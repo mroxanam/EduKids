@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Regístrate</title>
+  <!-- Fuentes personalizadas -->
+  <link href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@400;900&family=Margarine&display=swap" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Iconos de FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="background-container"></div>
+<div class="container">
+  <div class="card">
+    <h1>Regístrate</h1>
+
+    <!-- Mensaje de error -->
+    <div th:if="${error}" class="error-message" th:text="${error}"></div>
+
+    <form id="registerForm" th:action="@{/register}" th:object="${user}" method="post">
+      <div class="form-group">
+        <label for="email">Introduce tu correo electrónico</label>
+        <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="ejemplo@correo.com"
+                required
+                th:field="*{email}"
+                th:attr="placeholder=${user.email == null || user.email.isEmpty() ? 'ejemplo@correo.com' : ''}">
+      </div>
+      <div class="form-group">
+        <label for="password" class="password-label">Crea una contraseña</label>
+        <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="••••••••"
+                required
+                th:field="*{password}"
+                th:attr="placeholder=${user.password == null || user.password.isEmpty() ? '••••••••' : ''}">
+      </div>
+      <button type="submit" class="btn-primary">Continuar</button>
+    </form>
+    <div class="separator">o también</div>
+    <button class="btn-google" disabled>
+      <img src="/images/googleIcon.png" alt="Google Icon" class="google-icon">
+      Continuar con Google
+    </button>
+  </div>
+</div>
+
+<!-- Modal de Éxito -->
+<div th:if="${showSuccessModal}" class="success-modal">
+  <div class="modal-content">
+    <div class="success-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <h2>¡Registro Exitoso!</h2>
+    <p>Tu cuenta ha sido creada correctamente</p>
+    <button class="btn-modal" onclick="cerrarModal()">Continuar</button>
+  </div>
+</div>
+
+<script src="/js/script.js"></script>
+</body>
+</html>
